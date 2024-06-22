@@ -29,6 +29,5 @@ class Deck:
         self.cards.append(created_card)
         
   def _shuffle_deck(self, number_of_shuffles):
-    for idx in range(number_of_shuffles):
-      print(f"Times Shuffled: {idx + 1}")
+    for _ in range(number_of_shuffles):
       random.shuffle(self.cards)
