@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 colored = "*"
-questionary = "*"
 
 [dev-packages]
 pytest = "*"
+textual-dev = "*"
 
 [requires]
 python_version = "3.12"

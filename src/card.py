@@ -1,3 +1,5 @@
+from colored import Style, fore, Back
+
 
 class Card:
   def __init__(self) -> None:
@@ -30,8 +32,14 @@ class Card:
     return f"{value} of {suit}"
   
   def create_display_image(self, suit, value):
+    suit_color: str
+    rank_color = f"{Style.BOLD}{fore('green')}{Back.white}"
+    if suit in {'S', "C"}:
+      suit_color = f"{Style.BOLD}{fore('black')}"
+    else:
+      suit_color = f"{Style.BOLD}{fore('red')}"
     suit_img = str(self.unicode_characters[f'{suit}'])
-    return value + ' ' + suit_img
+    return f"{rank_color}{value} {suit_color}{suit_img}{Style.reset}"
     
     
   

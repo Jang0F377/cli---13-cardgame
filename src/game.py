@@ -1,15 +1,17 @@
 from deck import Deck
 from player import Player
-
+from scoreboard import Scoreboard
+from colored import Style, fore, Back
 
 class Game:
-  def __init__(self, deck, players) -> None:
+  def __init__(self, deck: Deck, players: Player, scoreboard: Scoreboard) -> None:
     self.deck: list[Deck] = deck.build_and_shuffle()
     self.players_state: list[Player] = players.initialize_players()
     self.discard_pile = list()
     self.history = list()
     self.player_to_start = None
     self.human_player = self.players_state[0]
+    self.scoreboard = scoreboard
     self.turn_state = {
       'how_many_cards': None,
       'first_card_value': None,
@@ -22,8 +24,28 @@ class Game:
       'player_in_power': None,    
     }
     
+    
+  def print_hand(self):
+    print_color = f"{Style.bold}{fore('blue_violet')}{Back.white}"
+    hand = self.human_player['hand']
+    hand_length = len(hand) + 1
+    print(f"{print_color}You are player no: 0{Style.reset}")
+    print(f"{print_color}Your hand:{Style.reset}")
+    print()
+    for card in hand:
+      print(f"""{card['display_image']}""", end='\t')
+    # Need to print an empty line to get everything in same column
+    print()
+    print()
+    for idx in range(1, hand_length):
+      print(f"{idx}", end='\t')
+    print()
+  
+    
   def start_game(self):
     self.initialize_game()
+    self.scoreboard.print_current_scoreboard(self.game_state,self.turn_state)
+    self.print_hand()
     
     
   def initialize_game(self):
@@ -49,6 +71,7 @@ class Game:
         self.game_state['current_turn_order'] = [3, 0, 1, 2]
       case _:
         Exception("Error determining turn order!")
+    
     
   def sort_hands(self) -> None:
     """Sorts the hands of each player
