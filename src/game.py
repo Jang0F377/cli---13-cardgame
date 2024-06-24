@@ -45,7 +45,6 @@ class Game:
   def start_game(self):
     self.initialize_game()
     self.scoreboard.print_current_scoreboard(self.game_state,self.turn_state)
-    self.print_hand()
     
     
   def initialize_game(self):
